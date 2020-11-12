@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gemspec
 
 group :test do
+  gem 'ddtrace', git: 'https://github.com/datadog/dd-trace-rb', branch: 'jirikuncar/rspec'
   gem 'rubocop', "~> 0.49.0"
   # NOTE: rake < 12.3.3 is vulnerable to CVE-2020-8130, but we only use it as a test dependency
   # and neither our users nor our CI is vulnerable in any way

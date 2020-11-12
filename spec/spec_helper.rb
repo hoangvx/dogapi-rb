@@ -2,12 +2,17 @@
 # This product includes software developed at Datadog (https://www.datadoghq.com/).
 # Copyright 2011-Present Datadog, Inc.
 
+require 'ddtrace'
 require 'rspec'
 require 'simplecov'
 require 'webmock/rspec'
 
 SimpleCov.start do
   add_filter 'spec'
+end
+
+Datadog.configure do |c|
+  c.use :rspec, {'service_name': 'dogapi-rb'}
 end
 
 WebMock.disable_net_connect!(allow_localhost: false)
