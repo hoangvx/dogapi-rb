@@ -45,7 +45,7 @@ jobs:
         RUBY_VERSION: '1.9.3'
         TASK: spec
         BUNDLE_GEMFILE: 'Gemfile_1.9'
-        BUNDLER_VERSION: '-v 1.0.10'
+        BUNDLER_VERSION: 'gem install bundler -v 1.0.10'
       Rb24:
         RUBY_VERSION: '2.4'
         TASK: spec
@@ -73,7 +73,7 @@ jobs:
         BUNDLER_VERSION: ''
   steps:
     - script: |
-        gem install bundler $(BUNDLER_VERSION)
+        $(BUNDLER_VERSION)
         bundle install --retry=3 --jobs=4
       displayName: 'bundle install'
       env:
