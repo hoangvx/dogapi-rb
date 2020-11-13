@@ -72,10 +72,12 @@ jobs:
       displayName: 'bundle install'
       env:
         BUNDLE_GEMFILE: $(BUNDLE_GEMFILE)
+        GEM_HOME: '~/.gem'
     - script: bundle exec rake $(TASK)
       displayName: Run $(TASK) via bundle
       env:
         BUNDLE_GEMFILE: $(BUNDLE_GEMFILE)
+        GEM_HOME: '~/.gem'
         DD_AGENT_HOST: datadog-agent
         DD_ENV: ci
         DD_SERVICE: dogapi-rb

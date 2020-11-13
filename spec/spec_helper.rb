@@ -12,10 +12,14 @@ SimpleCov.start do
 end
 
 Datadog.configure do |c|
-  c.use :rspec, {'service_name': 'dogapi-rb'}
+  c.use :rspec, service_name: 'dogapi-rb'
 end
 
-WebMock.disable_net_connect!(allow_localhost: false)
+WebMock.disable_net_connect!(
+  allow_localhost: false, allow: [
+    %r{#{Datadog::Transport::HTTP.default_hostname}:#{Datadog::Transport::HTTP.default_port}\/v0\.\d\/traces}
+  ]
+)
 
 # include our code and methods
 require 'dogapi'
