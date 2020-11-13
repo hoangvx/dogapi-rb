@@ -79,5 +79,5 @@ jobs:
         DD_AGENT_HOST: datadog-agent
         DD_ENV: ci
         DD_SERVICE: dogapi-rb
-        DD_TAGS: "team:integration-tools-and-libraries,runtime:ruby-$(RUBY_VERSION)"
+        DD_TAGS: "team:integration-tools-and-libraries,runtime:ruby-$(RUBY_VERSION),ci.job.name:$(System.JobName),matrix:$(TASK)"
         DD_TRACE_ANALYTICS_ENABLED: "true"
