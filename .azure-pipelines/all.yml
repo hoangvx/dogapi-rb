@@ -44,32 +44,26 @@ jobs:
       Rb19:
         RUBY_VERSION: '1.9.3'
         TASK: spec
-        BUNDLE_GEMFILE: 'Gemfile_1.9'
-        PRE_INSTALL: 'gem install bundler -v 1.0.10'
+        PRE_INSTALL: 'gem install bundler -v 1.0.10; mv Gemfile_1.9 Gemfile'
       Rb24:
         RUBY_VERSION: '2.4'
         TASK: spec
-        BUNDLE_GEMFILE: Gemfile
         PRE_INSTALL: ''
       Rb25:
         RUBY_VERSION: '2.5'
         TASK: spec
-        BUNDLE_GEMFILE: Gemfile
         PRE_INSTALL: ''
       Rb26:
         RUBY_VERSION: '2.6'
         TASK: spec
-        BUNDLE_GEMFILE: Gemfile
         PRE_INSTALL: ''
       Rb27:
         RUBY_VERSION: '2.7'
         TASK: spec
-        BUNDLE_GEMFILE: Gemfile
         PRE_INSTALL: ''
       Lint:
         RUBY_VERSION: '2.6'
         TASK: rubocop
-        BUNDLE_GEMFILE: Gemfile
         PRE_INSTALL: ''
   steps:
     - script: |
@@ -77,12 +71,10 @@ jobs:
         bundle install --retry=3 --jobs=4
       displayName: 'bundle install'
       env:
-        BUNDLE_GEMFILE: $(BUNDLE_GEMFILE)
         GEM_HOME: '~/.gem'
     - script: bundle exec rake $(TASK)
       displayName: Run $(TASK) via bundle
       env:
-        BUNDLE_GEMFILE: $(BUNDLE_GEMFILE)
         GEM_HOME: '~/.gem'
         DD_AGENT_HOST: datadog-agent
         DD_ENV: ci
