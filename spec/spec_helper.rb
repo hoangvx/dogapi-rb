@@ -19,7 +19,7 @@ begin
   end
   webmock_allow << "#{Datadog::Transport::HTTP.default_hostname}:#{Datadog::Transport::HTTP.default_port}"
 rescue LoadError
-  puts "ddtrace gem not found"
+  puts 'ddtrace gem not found'
 end
 
 WebMock.disable_net_connect!(allow_localhost: false, allow: webmock_allow)

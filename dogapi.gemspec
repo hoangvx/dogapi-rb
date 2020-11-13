@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.license       = 'BSD'
 
   begin
-    spec.metadata      = {
+    spec.metadata = {
       'bug_tracker_uri'   => 'https://github.com/DataDog/dogapi-rb/issues',
       'changelog_uri'     => 'https://github.com/DataDog/dogapi-rb/blob/master/CHANGELOG.md',
       'documentation_uri' => 'https://docs.datadoghq.com/api/',
