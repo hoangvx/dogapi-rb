@@ -68,10 +68,12 @@ jobs:
   steps:
     - script: |
         $(PRE_INSTALL)
-        bundle install --retry=3 --jobs=4 || bundle install
+        bundle install
       displayName: 'bundle install'
       env:
         GEM_HOME: '~/.gem'
+        BUNDLE_RETRY: '3'
+        BUNDLE_JOBS: '4'
     - script: bundle exec rake $(TASK)
       displayName: Run $(TASK) via bundle
       env:
