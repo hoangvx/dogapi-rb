@@ -68,7 +68,7 @@ jobs:
   steps:
     - script: |
         $(PRE_INSTALL)
-        bundle install --retry=3 --jobs=4
+        bundle install --retry=3 --jobs=4 || bundle install
       displayName: 'bundle install'
       env:
         GEM_HOME: '~/.gem'
