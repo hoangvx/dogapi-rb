@@ -42,7 +42,7 @@ jobs:
   strategy:
     matrix:
       Rb19:
-        RUBY_VERSION: '1.9'
+        RUBY_VERSION: '1.9.3'
         TASK: spec
         BUNDLE_GEMFILE: 'Gemfile_1.9'
       Rb24:
