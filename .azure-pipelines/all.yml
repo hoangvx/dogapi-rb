@@ -45,15 +45,14 @@ jobs:
         RUBY_VERSION: '2.7'
         TASK: spec
         BUNDLE_GEMFILE: Gemfile
-        BUNDLER_VERSION: ''
+        # BUNDLER_VERSION: ''
       Lint:
         RUBY_VERSION: '2.6'
         TASK: rubocop
         BUNDLE_GEMFILE: Gemfile
-        BUNDLER_VERSION: ''
+        # BUNDLER_VERSION: ''
   steps:
     - script: |
-        $(BUNDLER_VERSION)
         bundle install --retry=3 --jobs=4
       displayName: 'bundle install'
       env:
