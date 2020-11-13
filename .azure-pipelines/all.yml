@@ -66,9 +66,7 @@ jobs:
         TASK: rubocop
         BUNDLE_GEMFILE: Gemfile
   steps:
-    - script: |
-        gem install bundler
-        bundle install --retry=3 --jobs=4
+    - script: bundle install --retry=3 --jobs=4
       displayName: 'bundle install'
       env:
         BUNDLE_GEMFILE: $(BUNDLE_GEMFILE)
