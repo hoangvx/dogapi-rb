@@ -17,7 +17,7 @@ end
 
 WebMock.disable_net_connect!(
   allow_localhost: false, allow: [
-    %r{#{Datadog::Transport::HTTP.default_hostname}:#{Datadog::Transport::HTTP.default_port}\/v0\.\d\/traces}
+    "#{Datadog::Transport::HTTP.default_hostname}:#{Datadog::Transport::HTTP.default_port}"
   ]
 )
 
