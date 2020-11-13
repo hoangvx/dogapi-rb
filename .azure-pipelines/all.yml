@@ -41,26 +41,6 @@ jobs:
     datadog-agent: datadog-agent
   strategy:
     matrix:
-      Rb19:
-        RUBY_VERSION: '1.9.3'
-        TASK: spec
-        BUNDLE_GEMFILE: 'Gemfile_1.9'
-        BUNDLER_VERSION: 'gem install bundler -v 1.0.10'
-      Rb24:
-        RUBY_VERSION: '2.4'
-        TASK: spec
-        BUNDLE_GEMFILE: Gemfile
-        BUNDLER_VERSION: ''
-      Rb25:
-        RUBY_VERSION: '2.5'
-        TASK: spec
-        BUNDLE_GEMFILE: Gemfile
-        BUNDLER_VERSION: ''
-      Rb26:
-        RUBY_VERSION: '2.6'
-        TASK: spec
-        BUNDLE_GEMFILE: Gemfile
-        BUNDLER_VERSION: ''
       Rb27:
         RUBY_VERSION: '2.7'
         TASK: spec
