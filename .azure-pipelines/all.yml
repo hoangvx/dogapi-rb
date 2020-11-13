@@ -45,29 +45,35 @@ jobs:
         RUBY_VERSION: '1.9.3'
         TASK: spec
         BUNDLE_GEMFILE: 'Gemfile_1.9'
+        BUNDLER_VERSION: '-v 1.0.10'
       Rb24:
         RUBY_VERSION: '2.4'
         TASK: spec
         BUNDLE_GEMFILE: Gemfile
+        BUNDLER_VERSION: ''
       Rb25:
         RUBY_VERSION: '2.5'
         TASK: spec
         BUNDLE_GEMFILE: Gemfile
+        BUNDLER_VERSION: ''
       Rb26:
         RUBY_VERSION: '2.6'
         TASK: spec
         BUNDLE_GEMFILE: Gemfile
+        BUNDLER_VERSION: ''
       Rb27:
         RUBY_VERSION: '2.7'
         TASK: spec
         BUNDLE_GEMFILE: Gemfile
+        BUNDLER_VERSION: ''
       Lint:
         RUBY_VERSION: '2.6'
         TASK: rubocop
         BUNDLE_GEMFILE: Gemfile
+        BUNDLER_VERSION: ''
   steps:
     - script: |
-        gem install bundler
+        gem install bundler $(BUNDLER_VERSION)
         bundle install --retry=3 --jobs=4
       displayName: 'bundle install'
       env:
