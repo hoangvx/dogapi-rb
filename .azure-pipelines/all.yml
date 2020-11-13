@@ -41,39 +41,26 @@ jobs:
     datadog-agent: datadog-agent
   strategy:
     matrix:
-      Rb19:
-        RUBY_VERSION: '1.9.3'
-        TASK: spec
-        PRE_INSTALL: 'gem install bundler -v 1.0.10; mv Gemfile_1.9 Gemfile'
       Rb24:
         RUBY_VERSION: '2.4'
         TASK: spec
-        PRE_INSTALL: ''
       Rb25:
         RUBY_VERSION: '2.5'
         TASK: spec
-        PRE_INSTALL: ''
       Rb26:
         RUBY_VERSION: '2.6'
         TASK: spec
-        PRE_INSTALL: ''
       Rb27:
         RUBY_VERSION: '2.7'
         TASK: spec
-        PRE_INSTALL: ''
       Lint:
         RUBY_VERSION: '2.6'
         TASK: rubocop
-        PRE_INSTALL: ''
   steps:
-    - script: |
-        $(PRE_INSTALL)
-        bundle install
+    - script: bundle install --retry=3 --jobs=4
       displayName: 'bundle install'
       env:
         GEM_HOME: '~/.gem'
-        BUNDLE_RETRY: '3'
-        BUNDLE_JOBS: '4'
     - script: bundle exec rake $(TASK)
       displayName: Run $(TASK) via bundle
       env:
@@ -83,3 +70,12 @@ jobs:
         DD_SERVICE: dogapi-rb
         DD_TAGS: "team:integration-tools-and-libraries,runtime:ruby-$(RUBY_VERSION),ci.job.name:$(System.JobName),matrix:$(TASK)"
         DD_TRACE_ANALYTICS_ENABLED: "true"
+- job: TestRuby19
+  pool:
+    vmImage: "Ubuntu-16.04"
+  steps:
+    # Until the `container` AZP resource supports being root in a container https://github.com/microsoft/azure-pipelines-agent/issues/2619 we need this long single line approach
+    # By default AZP clones the repo into a folder called `s` - https://docs.microsoft.com/en-us/azure/devops/pipelines/repos/pipeline-options-for-git?view=azure-devops#checkout-path
+    # Mount this repo into the container, overwrite the Gemfile with the Ruby 1.9.3 supported depdencies, and run tests
+    - script: docker run -v $(Agent.BuildDirectory)/s:/cloned_repo corgibytes/ruby-1.9.3 bin/bash -c "cd cloned_repo; mv Gemfile_1.9 Gemfile; bundle install --retry=3 --jobs=4; bundle exec rake spec"
+      displayName: "Run tests with Ruby 1.9.3"
