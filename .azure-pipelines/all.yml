@@ -16,7 +16,7 @@ resources:
     options: --health-cmd="exit 0" --health-interval=1s
     ports:
     - 8125:8125
-    - 8126:8126
+    - 8126:8126/tcp
     env:
       DD_API_KEY: $(ddAPIKey)
       DD_APM_ENABLED: "true"
@@ -41,18 +41,39 @@ jobs:
     datadog-agent: datadog-agent
   strategy:
     matrix:
+      Rb19:
+        RUBY_VERSION: '1.9.3'
+        TASK: spec
+        BUNDLE_GEMFILE: 'Gemfile_1.9'
+        PRE_INSTALL: 'gem install bundler -v 1.0.10'
+      Rb24:
+        RUBY_VERSION: '2.4'
+        TASK: spec
+        BUNDLE_GEMFILE: Gemfile
+        PRE_INSTALL: ''
+      Rb25:
+        RUBY_VERSION: '2.5'
+        TASK: spec
+        BUNDLE_GEMFILE: Gemfile
+        PRE_INSTALL: ''
+      Rb26:
+        RUBY_VERSION: '2.6'
+        TASK: spec
+        BUNDLE_GEMFILE: Gemfile
+        PRE_INSTALL: ''
       Rb27:
         RUBY_VERSION: '2.7'
         TASK: spec
         BUNDLE_GEMFILE: Gemfile
-        # BUNDLER_VERSION: ''
+        PRE_INSTALL: ''
       Lint:
         RUBY_VERSION: '2.6'
         TASK: rubocop
         BUNDLE_GEMFILE: Gemfile
-        # BUNDLER_VERSION: ''
+        PRE_INSTALL: ''
   steps:
     - script: |
+        $(PRE_INSTALL)
         bundle install --retry=3 --jobs=4
       displayName: 'bundle install'
       env:
