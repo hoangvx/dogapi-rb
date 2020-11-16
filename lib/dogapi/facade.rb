@@ -475,8 +475,8 @@ module Dogapi
     end
 
     # Graph snapshot
-    def graph_snapshot(metric_query, start_ts, end_ts, event_query=nil)
-      @snapshot_svc.snapshot(metric_query, start_ts, end_ts, event_query)
+    def graph_snapshot(start_ts, end_ts, metric_query=nil, event_query=nil, graph_def=nil)
+      @snapshot_svc.snapshot(metric_query, start_ts, end_ts, event_query, graph_def)
     end
 
     #
