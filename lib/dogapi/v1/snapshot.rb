@@ -11,7 +11,7 @@ module Dogapi
 
       API_VERSION = 'v1'
 
-      def snapshot(metric_query, start_ts, end_ts, event_query=nil)
+      def snapshot(metric_query, start_ts, end_ts, event_query=nil, graph_def=nil)
         extra_params = {
           :metric_query => metric_query,
           :start => start_ts,
@@ -19,6 +19,10 @@ module Dogapi
         }
 
         extra_params[:event_query] = event_query if event_query
+        if graph_def
+          extra_params[:graph_def] = graph_def
+          extra_params.delete(:metric_query)
+        end
 
         request(Net::HTTP::Get, "/api/#{API_VERSION}/graph/snapshot", extra_params, nil, false)
       end
